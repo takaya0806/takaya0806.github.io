@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sukkato-shorts uploader</title>
+<meta name="description" content="個人の YouTube チャンネルに自作の縦型動画を予約投稿するための、開発者本人専用ツールの説明ページです。">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#5f6368;--line:#e3e1dc;--card:#fff;--accent:#0b6e4f}
+@media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#ececec;--muted:#a3a3a3;--line:#2e2e2e;--card:#1c1c1c;--accent:#5fd4a8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+main{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.6rem;line-height:1.4;margin:0 0 4px}
+h2{font-size:1.15rem;margin:40px 0 8px;padding-top:16px;border-top:1px solid var(--line)}
+p,li{overflow-wrap:anywhere}
+.sub{color:var(--muted);margin:0 0 24px}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);padding:12px 16px;border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+code{font-size:.85em;overflow-wrap:anywhere}
+a{color:var(--accent)}
+nav a{margin-right:16px}
+footer{margin-top:48px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">ホーム</a><a href="privacy.html">プライバシーポリシー</a><a href="terms.html">利用規約</a></nav>
+
+<h1>sukkato-shorts uploader</h1>
+<p class="sub">YouTube シリーズ「スカッとLINE劇場」の自動投稿ツール</p>
+
+<p class="note">このツールは、開発者本人が<strong>自分の YouTube チャンネルに自分で作った動画を投稿するためだけ</strong>に使う個人用のプログラムです。一般の方が登録・ログインして使えるサービスやアプリの配布はありません。</p>
+
+<h2>何をするツールか</h2>
+<p>開発者が書き下ろしたフィクションの台本から、チャット画面風の縦型ショート動画（1080×1920）をプログラムで生成し、開発者本人の YouTube チャンネルへ <strong>非公開</strong> の状態でアップロードして、指定した日時に公開されるよう予約します。</p>
+<ol>
+<li>非公開の GitHub リポジトリにある、まだ投稿していない台本を古い順に選ぶ</li>
+<li>GitHub Actions（GitHub のサーバー）上で動画を生成し、尺・音声などを自動で検証する</li>
+<li>YouTube Data API で投稿先チャンネルを確認したうえで、動画を「非公開＋予約公開」でアップロードする</li>
+<li>投稿した記録（台本ID・動画ID・タイトルなど）を同じ非公開リポジトリに保存し、同じ動画の二重投稿を防ぐ</li>
+</ol>
+
+<h2>Google アカウントで許可している権限</h2>
+<table>
+<tr><th>権限（スコープ）</th><th>使いみち</th></tr>
+<tr><td><code>https://www.googleapis.com/auth/youtube.upload</code></td><td>生成した動画を開発者本人のチャンネルにアップロードし、公開日時を予約する</td></tr>
+<tr><td><code>https://www.googleapis.com/auth/youtube.readonly</code></td><td>投稿先が正しいチャンネルかの確認、同じタイトルの動画がすでにないかの確認、投稿した動画の公開状態の確認</td></tr>
+</table>
+<p>メールアドレスやプロフィールの権限は求めていません。動画の削除・編集、コメント、再生回数などの分析データ、他人のチャンネルの操作は行いません。取得したデータの扱いは<a href="privacy.html">プライバシーポリシー</a>に書いています。</p>
+
+<h2>運営者</h2>
+<p>個人の開発者（GitHub: takaya0806）。プログラム本体のリポジトリは非公開です。問い合わせ方法は<a href="privacy.html#contact">プライバシーポリシーの「お問い合わせ」</a>をご覧ください。</p>
+
+<h2 lang="en">About (English)</h2>
+<div lang="en">
+<p><strong>sukkato-shorts uploader</strong> is a personal tool used only by its developer to upload the developer's own programmatically generated, fictional vertical short videos to the developer's own YouTube channel. It is not offered to the public; there is no sign-up and no app to download.</p>
+<p>It runs on GitHub Actions. It generates a video from an unpublished script in a private repository, verifies the video, confirms the destination channel, uploads the video as <em>private</em> with a scheduled publish time (<code>publishAt</code>), and records the upload in the private repository to prevent duplicate uploads.</p>
+<p>Requested scopes: <code>youtube.upload</code> (upload and schedule videos) and <code>youtube.readonly</code> (confirm the destination channel, check for existing videos with the same title, and check the status of uploaded videos). It does not request email or profile access and does not delete or edit videos, read comments, or access analytics. See the <a href="privacy.html#en">Privacy Policy</a> and <a href="terms.html#en">Terms of Service</a>.</p>
+</div>
+
+<footer>
+<p>本ツールは Google LLC および YouTube とは関係がなく、これらの会社が承認・推奨するものではありません。This tool is not affiliated with or endorsed by Google LLC or YouTube.</p>
+<p><a href="privacy.html">プライバシーポリシー / Privacy Policy</a> ・ <a href="terms.html">利用規約 / Terms of Service</a></p>
+</footer>
+</main>
+</body>
+</html>
